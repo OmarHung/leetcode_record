@@ -34,6 +34,8 @@ Because the 4th row is incomplete, we return 3.
 #### Solution & Thinking
 ``` PHP
 直接暴力，雖然通過了，但當N很大效率一定很差
+Runtime: 240 ms
+Memory Usage: 15 MB
 
 class Solution {
     /**
