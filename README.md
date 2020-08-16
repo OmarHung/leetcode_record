@@ -41,12 +41,12 @@ class Solution {
      * @return Integer
      */
     function arrangeCoins($n) {
-        $count = 0;
-        $i = 0;
-        $last_i = $i;
-        while($count<$n) {
-            $count += ++$i;
-            if($count<=$n) $last_i = $i;
+        $count = 0; //總硬幣數
+        $i = 0; //第幾階
+        $last_i = $i; //上一階
+        while($count<$n) { //總硬幣數少於給定硬幣數
+            $count += ++$i; //總硬幣數加上該階硬幣數
+            if($count<=$n) $last_i = $i; //若總硬幣數<=給定硬幣數則紀錄上一階有幾個硬幣
         }
         return $last_i;
     }
@@ -77,7 +77,9 @@ return its bottom-up level order traversal as:
 ```
 #### Solution & Thinking
 ``` PHP
-就是走訪
+就是走訪：
+先從root開始往左走再往右走，走到最底紀錄值與階層，一直遞迴下去
+
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -96,22 +98,27 @@ class Solution {
      * @param TreeNode $root
      * @return Integer[][]
      */
+    public $a = array(); //最終陣列
     function levelOrderBottom($root) {
-        return $this->find($root, array(), 1);
+        $this->find($root, 1);
+        return $this->a;
     }
     
-    function find($root, $a, $h) {
-        if($root->val !== null) {
-            if(count($a)<$h)
-                array_unshift($a, [$root->val]);
+    /**
+     * @param TreeNode $root (當前節點)
+     * @param Integer $h (第幾階)
+     * @return Integer[][]
+     */
+    function find($root, $h) {
+        if($root->val !== null) { //若有值再處理
+            if(count($this->a)<$h) //最終陣列內元素數<當前階層 (最終陣列內還沒有此階層的陣列)
+                array_unshift($this->a, [$root->val]); //把當前節點的值以陣列形式放入最終陣列的頭
             else
-                $a[count($a)-$h] = array_merge($a[count($a)-$h], [$root->val]);
+                $a[count($this->a)-$h] = array_merge($a[count($this->a)-$h], [$root->val]); //把當前節點的值以陣列形式放入最終陣列同階層位置
             
-            if($root->left !== null) $a = $this->find($root->left, $a, $h+1);
-            if($root->right !== null) $a = $this->find($root->right, $a, $h+1);
+            if($root->left !== null) $this->find($root->left, $h+1);
+            if($root->right !== null) $this->find($root->right, $h+1);
         }
-        
-        return $a;
     }
 }
 ```
