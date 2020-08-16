@@ -79,6 +79,8 @@ return its bottom-up level order traversal as:
 ``` PHP
 就是走訪：
 先從root開始往左走再往右走，走到最底紀錄值與階層，一直遞迴下去
+Runtime: 12 ms
+Memory Usage: 16 MB
 
 /**
  * Definition for a binary tree node.
@@ -115,6 +117,34 @@ class Solution {
                 array_unshift($this->a, [$root->val]); //把當前節點的值以陣列形式放入最終陣列的頭
             else
                 $a[count($this->a)-$h] = array_merge($a[count($this->a)-$h], [$root->val]); //把當前節點的值以陣列形式放入最終陣列同階層位置
+            
+            if($root->left !== null) $this->find($root->left, $h+1);
+            if($root->right !== null) $this->find($root->right, $h+1);
+        }
+    }
+}
+
+後來存入陣列方式改成先push後反轉陣列
+Runtime: 4 ms
+Memory Usage: 15.8 MB
+
+class Solution {
+    /**
+     * @param TreeNode $root
+     * @return Integer[][]
+     */
+    public $a = array();
+    function levelOrderBottom($root) {
+        $this->find($root, 1);
+        return array_reverse($this->a);
+    }
+    
+    function find($root, $h) {
+        if($root->val !== null) {
+            if(count($this->a)<$h)
+                array_push($this->a, [$root->val]);
+            else
+                $this->a[$h-1] = array_merge($this->a[$h-1], [$root->val]);
             
             if($root->left !== null) $this->find($root->left, $h+1);
             if($root->right !== null) $this->find($root->right, $h+1);
