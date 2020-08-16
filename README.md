@@ -34,7 +34,7 @@ Because the 4th row is incomplete, we return 3.
 #### Solution & Thinking
 ``` PHP
 直接暴力，雖然通過了，但當N很大效率一定很差
-Runtime: 240 ms
+Runtime: 196 ms
 Memory Usage: 15 MB
 
 class Solution {
@@ -43,14 +43,15 @@ class Solution {
      * @return Integer
      */
     function arrangeCoins($n) {
-        $count = 0; //總硬幣數
-        $i = 0; //第幾階
-        $last_i = $i; //上一階
-        while($count<$n) { //總硬幣數少於給定硬幣數
-            $count += ++$i; //總硬幣數加上該階硬幣數
-            if($count<=$n) $last_i = $i; //若總硬幣數<=給定硬幣數則紀錄上一階有幾個硬幣
+        $i = 1;
+        $count = 0;
+        $temp = 0;
+        while(true) {
+            $count += $i;
+            if($count>$n) return $i-1;
+            if($count==$n)return $i;
+            ++$i;
         }
-        return $last_i;
     }
 }
 ```
