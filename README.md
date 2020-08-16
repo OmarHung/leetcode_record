@@ -1,7 +1,7 @@
 # leetcode_record
 LeetCode 刷題記錄  
 
-# ¤ Arranging Coins
+# ¤ 441. Arranging Coins
 You have a total of n coins that you want to form in a staircase shape, where every k-th row must have exactly k coins.
 
 Given n, find the total number of full staircase rows that can be formed.
@@ -59,7 +59,7 @@ class Solution {
 [[LeetCode] Arranging Coins 排列硬币](https://www.cnblogs.com/grandyang/p/6026066.html)   
 
 
-# ¤ Binary Tree Level Order Traversal II
+# ¤ 107. Binary Tree Level Order Traversal II
 Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
 
 #### For example: 
